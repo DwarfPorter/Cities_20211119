@@ -15,14 +15,13 @@ public class MainActivity extends AppCompatActivity {
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, CoatOfArmsFragment.newInstance((0)))
-                    .commit();
-        } else {
-            CitiesFragment citiesFragment = new CitiesFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, citiesFragment)
+                    .replace(R.id.coat_of_arms_container, CoatOfArmsFragment.newInstance(0))
                     .commit();
         }
+        CitiesFragment citiesFragment = new CitiesFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, citiesFragment)
+                .commit();
     }
 }

@@ -50,6 +50,9 @@ public class CoatOfArmsFragment extends Fragment {
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_INDEX);
         }
+        if (savedInstanceState != null){
+            requireActivity().getSupportFragmentManager().popBackStack();
+        }
     }
 
     @Override

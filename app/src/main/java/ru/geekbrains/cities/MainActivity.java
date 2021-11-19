@@ -2,6 +2,7 @@ package ru.geekbrains.cities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
@@ -11,10 +12,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CitiesFragment citiesFragment = new CitiesFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, citiesFragment)
-                .commit();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, CoatOfArmsFragment.newInstance((0)))
+                    .commit();
+        } else {
+            CitiesFragment citiesFragment = new CitiesFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, citiesFragment)
+                    .commit();
+        }
     }
 }

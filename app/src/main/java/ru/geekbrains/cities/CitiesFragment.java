@@ -1,5 +1,6 @@
 package ru.geekbrains.cities;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -44,12 +45,30 @@ public class CitiesFragment extends Fragment {
             layoutView.addView(tvCityName);
             final int position = i;
             tvCityName.setOnClickListener(v -> {
-                showCoatOFArms(position);
+                showCoatOfArms(position);
             });
         }
     }
 
-    private void showCoatOFArms(int position) {
+    private void showCoatOfArms(int position) {
+        if (getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE) {
+            showLandCoatOfArms(position);
+        } else {
+            showPortCoatOfArms(position);
+        }
+    }
+
+    private void showLandCoatOfArms(int position) {
+        CoatOfArmsFragment coatOfArmsFragment = CoatOfArmsFragment.newInstance(position);
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.coat_of_arms_container, coatOfArmsFragment);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.commit();
+    }
+
+    private void showPortCoatOfArms(int position) {
         CoatOfArmsFragment coatOfArmsFragment = CoatOfArmsFragment.newInstance(position);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

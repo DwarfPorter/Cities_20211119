@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,12 +36,25 @@ public class CitiesFragment extends Fragment {
         LinearLayout layoutView = (LinearLayout) view;
         String[] cities = getResources().getStringArray(R.array.cities);
 
-        for(String city: cities){
+        for(int i = 0; i < cities.length; i++){
+            String city = cities[i];
             TextView tvCityName = new TextView(getContext());
             tvCityName.setText(city);
             tvCityName.setTextSize(30);
             layoutView.addView(tvCityName);
+            final int position = i;
+            tvCityName.setOnClickListener(v -> {
+                showCoatOFArms(position);
+            });
         }
+    }
+
+    private void showCoatOFArms(int position) {
+        CoatOfArmsFragment coatOfArmsFragment = CoatOfArmsFragment.newInstance(position);
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragment_container, coatOfArmsFragment);
+        transaction.commit();
     }
 
 }

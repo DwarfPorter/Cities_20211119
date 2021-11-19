@@ -1,5 +1,9 @@
 package ru.geekbrains.cities;
 
+import static ru.geekbrains.cities.CoatOfArmsFragment.ARG_INDEX;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -87,13 +91,10 @@ public class CitiesFragment extends Fragment {
     }
 
     private void showPortCoatOfArms(int position) {
-        CoatOfArmsFragment coatOfArmsFragment = CoatOfArmsFragment.newInstance(position);
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragment_container, coatOfArmsFragment);
-        transaction.addToBackStack("");
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.commit();
+        Activity activity = requireActivity();
+        Intent intent = new Intent(activity, CoatOfArmsActivity.class);
+        intent.putExtra(ARG_INDEX, position);
+        activity.startActivity(intent);
     }
 
     @Override

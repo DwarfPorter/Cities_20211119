@@ -20,7 +20,7 @@ import android.widget.ImageView;
 public class CoatOfArmsFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_INDEX = "index";
+    static final String ARG_INDEX = "index";
 
     // TODO: Rename and change types of parameters
     private int index;
@@ -49,9 +49,6 @@ public class CoatOfArmsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_INDEX);
-        }
-        if (savedInstanceState != null){
-            requireActivity().getSupportFragmentManager().popBackStack();
         }
     }
 

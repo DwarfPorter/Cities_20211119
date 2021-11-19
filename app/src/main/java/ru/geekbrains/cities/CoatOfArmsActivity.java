@@ -4,6 +4,7 @@ import static ru.geekbrains.cities.CoatOfArmsFragment.ARG_INDEX;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 public class CoatOfArmsActivity extends AppCompatActivity {
@@ -12,6 +13,11 @@ public class CoatOfArmsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coat_of_arms);
+
+        if (Utils.isLandscape(getResources())) {
+            finish();
+            return;
+        }
 
         if (savedInstanceState == null)
             getSupportFragmentManager()

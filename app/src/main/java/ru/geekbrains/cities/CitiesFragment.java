@@ -45,14 +45,9 @@ public class CitiesFragment extends Fragment {
 
         initList(view);
 
-        if (isLandscape()){
+        if (Utils.isLandscape(getResources())){
             showLandCoatOfArms(currentPosition);
         }
-    }
-
-    private boolean isLandscape() {
-        return getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     private void initList(View view) {
@@ -74,7 +69,7 @@ public class CitiesFragment extends Fragment {
     }
 
     private void showCoatOfArms(int position) {
-        if (isLandscape()) {
+        if (Utils.isLandscape(getResources())) {
             showLandCoatOfArms(position);
         } else {
             showPortCoatOfArms(position);

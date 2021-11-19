@@ -18,6 +18,10 @@ import android.widget.TextView;
 
 public class CitiesFragment extends Fragment {
 
+    private static final String CURRENT_CITY = "CurrentCity";
+    // Текущая позиция (выбранный город)
+    private int currentPosition = 0;
+
     // При создании фрагмента укажем его макет
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,7 +34,21 @@ public class CitiesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState != null){
+            currentPosition = savedInstanceState.getInt(CURRENT_CITY, 0);
+        }
+
         initList(view);
+
+        if (isLandscape()){
+            showLandCoatOfArms(currentPosition);
+        }
+    }
+
+    private boolean isLandscape() {
+        return getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     private void initList(View view) {
@@ -45,14 +63,14 @@ public class CitiesFragment extends Fragment {
             layoutView.addView(tvCityName);
             final int position = i;
             tvCityName.setOnClickListener(v -> {
+                currentPosition = position;
                 showCoatOfArms(position);
             });
         }
     }
 
     private void showCoatOfArms(int position) {
-        if (getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE) {
+        if (isLandscape()) {
             showLandCoatOfArms(position);
         } else {
             showPortCoatOfArms(position);
@@ -78,4 +96,9 @@ public class CitiesFragment extends Fragment {
         transaction.commit();
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(CURRENT_CITY, currentPosition);
+        super.onSaveInstanceState(outState);
+    }
 }

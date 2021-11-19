@@ -12,16 +12,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (savedInstanceState == null) {
+            CitiesFragment citiesFragment = new CitiesFragment();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.coat_of_arms_container, CoatOfArmsFragment.newInstance(0))
+                    .replace(R.id.fragment_container, citiesFragment)
                     .commit();
         }
-        CitiesFragment citiesFragment = new CitiesFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, citiesFragment)
-                .commit();
     }
 }

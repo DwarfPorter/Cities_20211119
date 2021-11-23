@@ -72,10 +72,9 @@ public class CoatOfArmsFragment extends Fragment {
             return;
         }
 
-        ImageView imageCoatOfArms = view.findViewById(R.id.coat_of_arms_image_view);
-        TypedArray images = getResources().obtainTypedArray(R.array.coat_of_arms_imgs);
-        imageCoatOfArms.setImageResource(images.getResourceId(city.getImageIndex(), 0));
-        images.recycle();
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.coat_of_arms_child_container, CoatOfArmsChildFragment.newInstance(city))
+                .commit();
 
         TextView textView = view.findViewById(R.id.coat_of_arms_text_view);
         textView.setText(city.getCityName());

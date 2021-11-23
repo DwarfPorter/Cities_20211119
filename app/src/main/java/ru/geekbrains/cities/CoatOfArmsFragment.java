@@ -74,6 +74,7 @@ public class CoatOfArmsFragment extends Fragment {
 
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.coat_of_arms_child_container, CoatOfArmsChildFragment.newInstance(city))
+                .addToBackStack("")
                 .commit();
 
         TextView textView = view.findViewById(R.id.coat_of_arms_text_view);

@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,5 +58,19 @@ public class CoatOfArmsChildFragment extends Fragment {
             imageCoatOfArms.setImageResource(images.getResourceId(city.getImageIndex(), 0));
             images.recycle();
         }
+
+        view.findViewById(R.id.coat_of_arms_child_button_back)
+                .setOnClickListener(v -> {
+                    getParentFragmentManager().popBackStack();
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                });
+
+        Log.d("Fragment CoatOfArmsChild", "Start");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("Fragment CoatOfArmsChild", "Finish");
     }
 }

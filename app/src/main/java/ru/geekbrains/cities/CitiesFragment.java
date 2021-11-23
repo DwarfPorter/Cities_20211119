@@ -24,7 +24,7 @@ public class CitiesFragment extends Fragment {
 
     private static final String CURRENT_CITY = "CurrentCity";
     // Текущая позиция (выбранный город)
-    private int currentPosition = 0;
+    private City currentCity = null;
 
     // При создании фрагмента укажем его макет
     @Override
@@ -40,13 +40,13 @@ public class CitiesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (savedInstanceState != null){
-            currentPosition = savedInstanceState.getInt(CURRENT_CITY, 0);
+            currentCity = (City) savedInstanceState.getSerializable(CURRENT_CITY);
         }
 
         initList(view);
 
         if (Utils.isLandscape(getResources())){
-            showLandCoatOfArms(currentPosition);
+            showLandCoatOfArms(currentCity);
         }
     }
 
@@ -55,29 +55,29 @@ public class CitiesFragment extends Fragment {
         String[] cities = getResources().getStringArray(R.array.cities);
 
         for(int i = 0; i < cities.length; i++){
-            String city = cities[i];
+            String cityName = cities[i];
             TextView tvCityName = new TextView(getContext());
-            tvCityName.setText(city);
+            tvCityName.setText(cityName);
             tvCityName.setTextSize(30);
             layoutView.addView(tvCityName);
             final int position = i;
             tvCityName.setOnClickListener(v -> {
-                currentPosition = position;
-                showCoatOfArms(position);
+                currentCity = new City(position, cityName);
+                showCoatOfArms(currentCity);
             });
         }
     }
 
-    private void showCoatOfArms(int position) {
+    private void showCoatOfArms(City city) {
         if (Utils.isLandscape(getResources())) {
-            showLandCoatOfArms(position);
+            showLandCoatOfArms(city);
         } else {
-            showPortCoatOfArms(position);
+            showPortCoatOfArms(city);
         }
     }
 
-    private void showLandCoatOfArms(int position) {
-        CoatOfArmsFragment coatOfArmsFragment = CoatOfArmsFragment.newInstance(position);
+    private void showLandCoatOfArms(City city) {
+        CoatOfArmsFragment coatOfArmsFragment = CoatOfArmsFragment.newInstance(city);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.coat_of_arms_container, coatOfArmsFragment);
@@ -85,16 +85,16 @@ public class CitiesFragment extends Fragment {
         transaction.commit();
     }
 
-    private void showPortCoatOfArms(int position) {
+    private void showPortCoatOfArms(City city) {
         Activity activity = requireActivity();
         Intent intent = new Intent(activity, CoatOfArmsActivity.class);
-        intent.putExtra(ARG_INDEX, position);
+        intent.putExtra(ARG_INDEX, city);
         activity.startActivity(intent);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt(CURRENT_CITY, currentPosition);
+        outState.putSerializable(CURRENT_CITY, currentCity);
         super.onSaveInstanceState(outState);
     }
 }

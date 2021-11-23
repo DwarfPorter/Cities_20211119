@@ -11,6 +11,14 @@
     tools:context=".CoatOfArmsFragment"
     >
 
+    <TextView
+        android:id="@+id/coat_of_arms_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size"
+        tools:text="Москва"
+        />
+
     <ImageView
         android:id="@+id/coat_of_arms_image_view"
         android:layout_width="match_parent"

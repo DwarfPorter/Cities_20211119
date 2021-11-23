@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,7 +24,7 @@ public class CoatOfArmsFragment extends Fragment {
     static final String ARG_INDEX = "index";
 
     // TODO: Rename and change types of parameters
-    private int index;
+    private City city;
 
     public CoatOfArmsFragment() {
         // Required empty public constructor
@@ -33,13 +34,13 @@ public class CoatOfArmsFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param index Index of city.
+     * @param city Index of city.
      * @return A new instance of fragment CoatOfArmsFragment.
      */
-    public static CoatOfArmsFragment newInstance(int index) {
+    public static CoatOfArmsFragment newInstance(City city) {
         CoatOfArmsFragment fragment = new CoatOfArmsFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_INDEX, index);
+        args.putSerializable(ARG_INDEX, city);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +49,7 @@ public class CoatOfArmsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            index = getArguments().getInt(ARG_INDEX);
+            city = (City) getArguments().getSerializable(ARG_INDEX);
         }
     }
 
@@ -62,9 +63,16 @@ public class CoatOfArmsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (city == null) {
+            return;
+        }
+
         ImageView imageCoatOfArms = view.findViewById(R.id.coat_of_arms_image_view);
         TypedArray images = getResources().obtainTypedArray(R.array.coat_of_arms_imgs);
-        imageCoatOfArms.setImageResource(images.getResourceId(index, 0));
+        imageCoatOfArms.setImageResource(images.getResourceId(city.getImageIndex(), 0));
         images.recycle();
+
+        TextView textView = view.findViewById(R.id.coat_of_arms_text_view);
+        textView.setText(city.getCityName());
     }
 }

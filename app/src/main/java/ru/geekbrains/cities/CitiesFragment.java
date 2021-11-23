@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class CitiesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initList(view);
+        Log.d("Fragment Cities", "Start");
     }
 
     private void initList(View view) {
@@ -58,8 +60,14 @@ public class CitiesFragment extends Fragment {
     private void showPortCoatOfArms(City city) {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragment_container, CoatOfArmsFragment.newInstance(city))
+        transaction.replace(R.id.fragment_container, CoatOfArmsFragment.newInstance(city))
                 .addToBackStack("")
                 .commit();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("Fragment Cities", "Finish");
     }
 }

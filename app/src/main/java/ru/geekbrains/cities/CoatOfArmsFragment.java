@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,5 +75,13 @@ public class CoatOfArmsFragment extends Fragment {
 
         TextView textView = view.findViewById(R.id.coat_of_arms_text_view);
         textView.setText(city.getCityName());
+
+        Log.d("Fragment CoatOfArms", "Start");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("Fragment CoatOfArms", "Finish");
     }
 }

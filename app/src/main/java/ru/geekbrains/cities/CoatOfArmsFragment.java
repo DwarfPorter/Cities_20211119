@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,6 +83,16 @@ public class CoatOfArmsFragment extends Fragment {
         Button buttonBack = view.findViewById(R.id.coat_of_arms_button_back);
         buttonBack.setOnClickListener(v -> {
             requireActivity().getSupportFragmentManager().popBackStack();
+        });
+
+        view.findViewById(R.id.coat_of_arms_button_remove).setOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            List<Fragment> fragments = fragmentManager.getFragments();
+            for (Fragment fragment : fragments){
+                if (fragment instanceof CoatOfArmsFragment && fragment.isVisible()){
+                    fragmentManager.beginTransaction().remove(fragment).commit();
+                }
+            }
         });
 
         Log.d("Fragment CoatOfArms", "Start");

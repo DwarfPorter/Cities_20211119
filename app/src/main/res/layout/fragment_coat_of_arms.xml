@@ -28,6 +28,14 @@
         android:text="Назад"
         />
 
+    <Button
+        android:id="@+id/coat_of_arms_button_remove"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size"
+        android:text="Remove"
+        />
+
     <ImageView
         android:id="@+id/coat_of_arms_image_view"
         android:layout_width="match_parent"

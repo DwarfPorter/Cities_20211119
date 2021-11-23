@@ -40,7 +40,7 @@ public class CitiesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (savedInstanceState != null){
-            currentCity = (City) savedInstanceState.getSerializable(CURRENT_CITY);
+            currentCity = (City) savedInstanceState.getParcelable(CURRENT_CITY);
         }
 
         initList(view);
@@ -94,7 +94,7 @@ public class CitiesFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putSerializable(CURRENT_CITY, currentCity);
+        outState.putParcelable(CURRENT_CITY, currentCity);
         super.onSaveInstanceState(outState);
     }
 }

@@ -40,7 +40,7 @@ public class CoatOfArmsFragment extends Fragment {
     public static CoatOfArmsFragment newInstance(City city) {
         CoatOfArmsFragment fragment = new CoatOfArmsFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_INDEX, city);
+        args.putParcelable(ARG_INDEX, city);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,7 +49,7 @@ public class CoatOfArmsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            city = (City) getArguments().getSerializable(ARG_INDEX);
+            city = (City) getArguments().getParcelable(ARG_INDEX);
         }
     }
 

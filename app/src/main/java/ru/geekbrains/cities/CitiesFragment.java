@@ -60,7 +60,7 @@ public class CitiesFragment extends Fragment {
     private void showPortCoatOfArms(City city) {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragment_container, CoatOfArmsFragment.newInstance(city))
+        transaction.add(R.id.fragment_container, CoatOfArmsFragment.newInstance(city))
                 .addToBackStack("")
                 .commit();
     }

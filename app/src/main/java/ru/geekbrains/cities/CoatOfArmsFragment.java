@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -75,6 +76,11 @@ public class CoatOfArmsFragment extends Fragment {
 
         TextView textView = view.findViewById(R.id.coat_of_arms_text_view);
         textView.setText(city.getCityName());
+
+        Button buttonBack = view.findViewById(R.id.coat_of_arms_button_back);
+        buttonBack.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
+        });
 
         Log.d("Fragment CoatOfArms", "Start");
     }

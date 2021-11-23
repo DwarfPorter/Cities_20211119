@@ -22,10 +22,6 @@ import android.widget.TextView;
 
 public class CitiesFragment extends Fragment {
 
-    private static final String CURRENT_CITY = "CurrentCity";
-    // Текущая позиция (выбранный город)
-    private City currentCity = null;
-
     // При создании фрагмента укажем его макет
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,16 +34,7 @@ public class CitiesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        if (savedInstanceState != null){
-            currentCity = (City) savedInstanceState.getParcelable(CURRENT_CITY);
-        }
-
         initList(view);
-
-        if (Utils.isLandscape(getResources())){
-            showLandCoatOfArms(currentCity);
-        }
     }
 
     private void initList(View view) {
@@ -62,39 +49,15 @@ public class CitiesFragment extends Fragment {
             layoutView.addView(tvCityName);
             final int position = i;
             tvCityName.setOnClickListener(v -> {
-                currentCity = new City(position, cityName);
-                showCoatOfArms(currentCity);
+                City currentCity = new City(position, cityName);
+                showPortCoatOfArms(currentCity);
             });
         }
     }
 
-    private void showCoatOfArms(City city) {
-        if (Utils.isLandscape(getResources())) {
-            showLandCoatOfArms(city);
-        } else {
-            showPortCoatOfArms(city);
-        }
-    }
-
-    private void showLandCoatOfArms(City city) {
-        CoatOfArmsFragment coatOfArmsFragment = CoatOfArmsFragment.newInstance(city);
+    private void showPortCoatOfArms(City city) {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.coat_of_arms_container, coatOfArmsFragment);
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.commit();
-    }
-
-    private void showPortCoatOfArms(City city) {
-        Activity activity = requireActivity();
-        Intent intent = new Intent(activity, CoatOfArmsActivity.class);
-        intent.putExtra(ARG_INDEX, city);
-        activity.startActivity(intent);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelable(CURRENT_CITY, currentCity);
-        super.onSaveInstanceState(outState);
+        transaction.add(R.id.fragment_container, CoatOfArmsFragment.newInstance(city)).commit();
     }
 }

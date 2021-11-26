@@ -7,4 +7,6 @@
     <string name="about_developers">О разработчиках</string>
     <string name="change">Change</string>
     <string name="changed_text">Changed text</string>
+    <string name="header">Header</string>
+    <string name="description">Description</string>
 </resources>

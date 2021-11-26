@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -77,6 +79,8 @@ public class CoatOfArmsFragment extends Fragment {
             return;
         }
 
+        initActionBar(view);
+
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.coat_of_arms_child_container, CoatOfArmsChildFragment.newInstance(city))
                 .addToBackStack("")
@@ -101,6 +105,14 @@ public class CoatOfArmsFragment extends Fragment {
         });
 
         Log.d("Fragment CoatOfArms", "Start");
+    }
+
+    private void initActionBar(@NonNull View view) {
+        Toolbar toolbar = view.findViewById(R.id.fragment_toolbar);
+        toolbar.setSubtitle("My subtitle");
+        AppCompatActivity activity = (AppCompatActivity)requireActivity();
+        activity.setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
     }
 
     @Override

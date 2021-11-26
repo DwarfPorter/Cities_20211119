@@ -2,6 +2,7 @@ package ru.geekbrains.cities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initToolbar();
+
         if (savedInstanceState == null) {
             CitiesFragment citiesFragment = new CitiesFragment();
             getSupportFragmentManager()
@@ -22,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.fragment_container, citiesFragment)
                     .commit();
         }
+    }
+
+    private void initToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override

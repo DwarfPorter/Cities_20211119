@@ -9,4 +9,6 @@
     <string name="changed_text">Changed text</string>
     <string name="header">Header</string>
     <string name="description">Description</string>
+    <string name="navigation_drawer_open">drawer open</string>
+    <string name="navigation_drawer_close">drawer close</string>
 </resources>

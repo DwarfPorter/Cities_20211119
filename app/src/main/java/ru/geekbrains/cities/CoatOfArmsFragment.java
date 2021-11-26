@@ -30,6 +30,7 @@ public class CoatOfArmsFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     static final String ARG_INDEX = "index";
+    private TextView textView;
 
     // TODO: Rename and change types of parameters
     private City city;
@@ -81,7 +82,7 @@ public class CoatOfArmsFragment extends Fragment {
                 .addToBackStack("")
                 .commit();
 
-        TextView textView = view.findViewById(R.id.coat_of_arms_text_view);
+        textView = view.findViewById(R.id.coat_of_arms_text_view);
         textView.setText(city.getCityName());
 
         Button buttonBack = view.findViewById(R.id.coat_of_arms_button_back);
@@ -104,12 +105,22 @@ public class CoatOfArmsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment, menu);
         MenuItem item = menu.findItem(R.id.action_about);
         if (item != null){
             item.setVisible(false);
         }
 
         menu.add(Menu.NONE, 20, Menu.NONE, "Item menu");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_change){
+            textView.setText(R.string.changed_text);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

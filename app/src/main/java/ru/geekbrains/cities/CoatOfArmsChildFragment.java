@@ -1,14 +1,17 @@
 package ru.geekbrains.cities;
 
+import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,6 +26,7 @@ public class CoatOfArmsChildFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_INDEX_CHILD = "index";
+    private ImageView imageCoatOfArms;
 
     /**
      * Use this factory method to create a new instance of
@@ -53,10 +57,11 @@ public class CoatOfArmsChildFragment extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null){
             City city = arguments.getParcelable(ARG_INDEX_CHILD);
-            ImageView imageCoatOfArms = view.findViewById(R.id.coat_of_arms_image_view);
+            imageCoatOfArms = view.findViewById(R.id.coat_of_arms_image_view);
             TypedArray images = getResources().obtainTypedArray(R.array.coat_of_arms_imgs);
             imageCoatOfArms.setImageResource(images.getResourceId(city.getImageIndex(), 0));
             images.recycle();
+            initPopupMenu();
         }
 
         view.findViewById(R.id.coat_of_arms_child_button_back)
@@ -66,6 +71,30 @@ public class CoatOfArmsChildFragment extends Fragment {
                 });
 
         Log.d("Fragment CoatOfArmsChild", "Start");
+    }
+
+    private void initPopupMenu() {
+        imageCoatOfArms.setOnLongClickListener(v -> {
+            Activity activity = requireActivity();
+            PopupMenu popupMenu = new PopupMenu(activity, v);
+            activity.getMenuInflater().inflate(R.menu.popup, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch(item.getItemId()) {
+                        case R.id.action_popup_clear:
+                            imageCoatOfArms.setImageAlpha(0);
+                            return true;
+                        case R.id.action_popup_exit:
+                            activity.finish();
+                            return true;
+                    }
+                    return false;
+                }
+            });
+            popupMenu.show();
+            return true;
+        });
     }
 
     @Override

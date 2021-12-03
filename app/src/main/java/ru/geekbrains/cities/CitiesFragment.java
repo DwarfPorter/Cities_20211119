@@ -43,14 +43,16 @@ public class CitiesFragment extends Fragment {
         LinearLayout layoutView = (LinearLayout) view;
         String[] cities = getResources().getStringArray(R.array.cities);
 
+        LayoutInflater ltInflater = getLayoutInflater();
+
         for(int i = 0; i < cities.length; i++){
             String cityName = cities[i];
-            TextView tvCityName = new TextView(getContext());
-            tvCityName.setText(cityName);
-            tvCityName.setTextSize(30);
-            layoutView.addView(tvCityName);
+            View item = ltInflater.inflate(R.layout.item, layoutView, false);
+            TextView textView = item.findViewById(R.id.textView);
+            textView.setText(cityName);
+            layoutView.addView(item);
             final int position = i;
-            tvCityName.setOnClickListener(v -> {
+            textView.setOnClickListener(v -> {
                 City currentCity = new City(position, cityName);
                 showPortCoatOfArms(currentCity);
             });
